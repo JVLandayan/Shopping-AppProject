@@ -8,6 +8,7 @@ import {
 } from '@angular/core';
 
 import { Ingredient } from '../../shared/ingredient.model';
+import { ShoppingListService } from 'src/app/shopping-list.service';
 
 @Component({
   selector: 'app-shopping-edit',
@@ -17,18 +18,17 @@ import { Ingredient } from '../../shared/ingredient.model';
 export class ShoppingEditComponent implements OnInit {
   @ViewChild('nameInput', { static: false }) nameInputRef: ElementRef;
   @ViewChild('amountInput', { static: false }) amountInputRef: ElementRef;
-  @Output() ingredientAdded = new EventEmitter<Ingredient>();
 
-  constructor() { }
+  constructor(private shoppinglistService: ShoppingListService) { }
 
   ngOnInit() {
   }
 
   onAddItem() {
-    const ingName = this.nameInputRef.nativeElement.value;
-    const ingAmount = this.amountInputRef.nativeElement.value;
-    const newIngredient = new Ingredient(ingName, ingAmount);
-    this.ingredientAdded.emit(newIngredient);
+    const ingName = this.nameInputRef.nativeElement.value; //first input
+    const ingAmount = this.amountInputRef.nativeElement.value; //second input
+    const newIngredient = new Ingredient(ingName, ingAmount); //Data type would be object through ingredient model
+    this.shoppinglistService.addIngredient(newIngredient) //initializes the method in services with the object in place
   }
 
 }
