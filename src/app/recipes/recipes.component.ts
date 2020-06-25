@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 
 import { Recipe } from './recipe.model';
-import { RecipeService } from '../recipe.service';
+import { RecipeService } from '../servicess/recipe.service';
 
 @Component({
   selector: 'app-recipes',
@@ -20,7 +20,6 @@ export class RecipesComponent implements OnInit {
         //Catches the data emited
         this.selectedRecipe = recipe
          //Replaces selectedRecipe with the data that has been emitted
-
       }
     )
   }

@@ -8,7 +8,8 @@ import {
 } from '@angular/core';
 
 import { Ingredient } from '../../shared/ingredient.model';
-import { ShoppingListService } from 'src/app/shopping-list.service';
+import { ShoppingListService } from 'src/app/servicess/shopping-list.service';
+import { LoggingServiceService } from 'src/app/logging-service.service';
 
 @Component({
   selector: 'app-shopping-edit',
@@ -19,7 +20,7 @@ export class ShoppingEditComponent implements OnInit {
   @ViewChild('nameInput', { static: false }) nameInputRef: ElementRef;
   @ViewChild('amountInput', { static: false }) amountInputRef: ElementRef;
 
-  constructor(private shoppinglistService: ShoppingListService) { }
+  constructor(private shoppinglistService: ShoppingListService, private loggingService : LoggingServiceService) { }
 
   ngOnInit() {
   }
@@ -29,6 +30,7 @@ export class ShoppingEditComponent implements OnInit {
     const ingAmount = this.amountInputRef.nativeElement.value; //second input
     const newIngredient = new Ingredient(ingName, ingAmount); //Data type would be object through ingredient model
     this.shoppinglistService.addIngredient(newIngredient) //initializes the method in services with the object in place
+    this.loggingService.loggingservice("Method Executed!")
   }
 
 }

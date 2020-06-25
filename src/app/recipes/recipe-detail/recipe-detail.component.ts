@@ -1,7 +1,9 @@
 import { Component, OnInit, Input } from '@angular/core';
 
 import { Recipe } from '../recipe.model';
-import { RecipeService } from 'src/app/recipe.service';
+import { RecipeService } from 'src/app/servicess/recipe.service';
+import { ActivatedRoute, Router, Params } from '@angular/router';
+import { Route } from '@angular/compiler/src/core';
 
 @Component({
   selector: 'app-recipe-detail',
@@ -9,14 +11,24 @@ import { RecipeService } from 'src/app/recipe.service';
   styleUrls: ['./recipe-detail.component.css']
 })
 export class RecipeDetailComponent implements OnInit {
-  @Input() recipe: Recipe;
+  recipe: Recipe;
+  id:number
 
-  constructor(private recipeService : RecipeService) { }
+  constructor(private recipeService : RecipeService,private route: ActivatedRoute, private router:Router) { }
 
   ngOnInit() {
+    this.route.params.subscribe((params:Params)=>{
+      this.id = +params['id']
+      this.recipe = this.recipeService.getRecipes(this.id)
+    })
+
+  }
+  editRecipe() {
+    this.router.navigate(['edit'],{relativeTo:this.route})
   }
 
   addIngredientsToShopping() {
     this.recipeService.addIngredientsToShopping(this.recipe.ingredients) //this.recipe.ingredients is an array so we should treat it as an array
+
   }
 }

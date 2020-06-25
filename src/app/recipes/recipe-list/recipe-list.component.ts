@@ -1,7 +1,7 @@
-import { Component, OnInit, EventEmitter, Output } from '@angular/core';
+import { Component, OnInit} from '@angular/core';
 
 import { Recipe } from '../recipe.model';
-import { RecipeService } from 'src/app/recipe.service';
+import { RecipeService } from 'src/app/servicess/recipe.service';
 
 @Component({
   selector: 'app-recipe-list',
@@ -15,6 +15,8 @@ export class RecipeListComponent implements OnInit {
   ngOnInit() {
     this.recipes = this.recipeService.getRecipe()
   }
+
+  //Initializes the array. Fills the recipes array with the array from services
 
 
 }

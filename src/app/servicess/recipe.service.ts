@@ -1,6 +1,6 @@
 import { Injectable, EventEmitter } from '@angular/core';
-import { Recipe } from './recipes/recipe.model';
-import { Ingredient } from './shared/ingredient.model';
+import { Recipe } from '../recipes/recipe.model';
+import { Ingredient } from '../shared/ingredient.model';
 import { ShoppingListService } from './shopping-list.service';
 
 
@@ -10,6 +10,8 @@ import { ShoppingListService } from './shopping-list.service';
 export class RecipeService {
 
   constructor(private slService: ShoppingListService) { }
+
+
 
   private recipesArr: Recipe[] = [
     new Recipe('A Test Recipe',
@@ -28,15 +30,24 @@ export class RecipeService {
     ])
   ];
 
+  //recipe-list.component.ts
+  //Initializes the array via onInit
   getRecipe () {
     return this.recipesArr.slice()
-
   }
 
-  recipeSelected = new EventEmitter<Recipe>()
+  getRecipes(id:number) {
+    return this.recipesArr[id]
+  }
 
+  //recipe-detail.component.ts
   addIngredientsToShopping (ingredients: Ingredient[]) {
     this.slService.addIngredientsss(ingredients)
+  //Shopping-list-service.ts
   }
+
+  //recipe-item.component.ts
+  recipeSelected = new EventEmitter<Recipe>()
+
 
 }
