@@ -1,7 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 
 import { Recipe } from './recipe.model';
 import { RecipeService } from '../servicess/recipe.service';
+import { Subject, Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-recipes',
@@ -11,18 +12,14 @@ import { RecipeService } from '../servicess/recipe.service';
 })
 export class RecipesComponent implements OnInit {
   selectedRecipe: Recipe;
+  subscription:Subscription
 
   constructor(private recipeService: RecipeService) { }
 
   ngOnInit() {
-    this.recipeService.recipeSelected.subscribe(
-      (recipe:Recipe) => {
-        //Catches the data emited
-        this.selectedRecipe = recipe
-         //Replaces selectedRecipe with the data that has been emitted
-      }
-    )
+
   }
+
     //On initialization of the component. This will subscribe to the recipe-item emitted event
 
 

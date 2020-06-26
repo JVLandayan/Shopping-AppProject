@@ -1,9 +1,7 @@
-import { Component, OnInit, Input, EventEmitter, Output } from '@angular/core';
+import { Component, OnInit, Input} from '@angular/core';
 
 import { Recipe } from '../../recipe.model';
 import { RecipeService } from 'src/app/servicess/recipe.service';
-import { LoggingServiceService } from 'src/app/logging-service.service';
-import { ActivatedRoute, Router } from '@angular/router';
 
 @Component({
   selector: 'app-recipe-item',
@@ -17,7 +15,7 @@ export class RecipeItemComponent implements OnInit {
   //Data = for loop then binded the data through [recipe]="recipeEl"
 
 
-  constructor(private recipeService: RecipeService,private route: ActivatedRoute, router: Router ) { }
+  constructor(private recipeService: RecipeService) { }
 
   ngOnInit() {
 
@@ -25,7 +23,7 @@ export class RecipeItemComponent implements OnInit {
 
 
   onSelected() {
-    this.recipeService.recipeSelected.emit(this.recipe)
+    this.recipeService.recipeSelected.next(this.recipe)
   }
   //Method that calls the service that emits -> recipes.component.ts
   //When selected. the data would be emitted to recipes component

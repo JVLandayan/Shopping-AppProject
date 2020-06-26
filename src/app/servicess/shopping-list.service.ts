@@ -1,11 +1,12 @@
-import { Injectable, EventEmitter,Output } from '@angular/core';
+import { Injectable} from '@angular/core';
 import { Ingredient } from '../shared/ingredient.model';
+import { Subject } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
 })
 export class ShoppingListService {
-  ingredientsChanged = new EventEmitter<Ingredient[]>() //Type that will pass on is an Ingredients Array
+  ingredientsChanged = new Subject<Ingredient[]>() //Type that will pass on is an Ingredients Array
   private ingredientsArr: Ingredient[] = [
     new Ingredient('Apples', 5),
     new Ingredient('Tomatoes', 10),
@@ -17,7 +18,6 @@ export class ShoppingListService {
   }
   constructor() { }
 
-  @Output() ingredientAdded = new EventEmitter<Ingredient>()
 
 
   //
@@ -27,12 +27,12 @@ export class ShoppingListService {
 
   addIngredient (ingredient: Ingredient) {
     this.ingredientsArr.push(ingredient)
-    this.ingredientsChanged.emit(this.ingredientsArr.slice())//The data that will be emiited would be the copy of the array *see line 8
+    this.ingredientsChanged.next(this.ingredientsArr.slice())//The data that will be emiited would be the copy of the array *see line 8
   }
 
   addIngredientsss(ingredients: Ingredient[]) {
     this.ingredientsArr.push(...ingredients)
-    this.ingredientsChanged.emit(this.ingredientsArr.slice())
+    this.ingredientsChanged.next(this.ingredientsArr.slice())
   }
 
 
